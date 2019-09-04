@@ -1,0 +1,13 @@
+server:
+  port: 8999
+spring:
+  application:
+    name: tensquare-exam #指定服务名
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.226.134:3306/tensquare_exam?characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+  jpa:
+    database: MySQL
+    show-sql: true
