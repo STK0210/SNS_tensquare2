@@ -33,8 +33,8 @@ public class SmsListener {
     public void executeSms(Map<String, String> map) {
         String mobile = map.get("mobile");
         String checkcode = map.get("checkcode");
-
-        System.out.println("手机号：" + map.get("mobile") + "\t" + "验证码：" + map.get("checkcode"));
+        //测试用
+        //System.out.println("手机号：" + map.get("mobile") + "\t" + "验证码：" + map.get("checkcode"));
         try {
             CommonResponse response = smsUtil.send(mobile, template_code, sign_name, "{\"checkcode\":\"" + checkcode + "\"}");
             System.out.println(response.getData());

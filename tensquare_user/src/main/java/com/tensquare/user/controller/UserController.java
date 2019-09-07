@@ -10,8 +10,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import util.IdWorker;
+import util.JwtUtil;
 
-import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -33,25 +34,36 @@ public class UserController {
     @Autowired
     private IdWorker idWorker;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public Result login(@RequestBody User user) {
+        user = userService.login(user.getMobile(), user.getPassword());
+        if (user == null) {
+            return new Result(false, StatusCode.LOGINERROR, "用户登录失败");
+        }
+        String token = jwtUtil.createJWT(user.getId(), user.getNickname(), "user");
+        Map<String, Object> map = new HashMap<>();
+        map.put("token", token);
+        map.put("roles", "user");
+        return new Result(true, StatusCode.OK, "用户登录成功", map);
+    }
+
+
     /**
      * 注册
      */
     @RequestMapping(value = "/register/{code}", method = RequestMethod.POST)
     public Result regist(@PathVariable String code, @RequestBody User user) {
         String checkcodeRedis = (String) redisTemplate.opsForValue().get("checkcode_" + user.getMobile());
-        if (checkcodeRedis==null) {
+        if (checkcodeRedis == null) {
             return new Result(false, StatusCode.ERROR, "请先获取手机验证码");
         }
         if (!checkcodeRedis.equals(code)) {
             return new Result(false, StatusCode.ERROR, "请输入正确的验证码");
         }
         user.setId(idWorker.nextId() + "");
-        user.setFollowcount(0);//关注数
-        user.setFanscount(0);//粉丝数
-        user.setOnline(0L);//在线时长
-        user.setRegdate(new Date());//注册日期
-        user.setUpdatedate(new Date());//更新日期
-        user.setLastdate(new Date());//最后登陆日期
         userService.add(user);
         return new Result(true, StatusCode.OK, "用户注册成功");
     }
@@ -137,12 +149,17 @@ public class UserController {
 
     /**
      * 删除
+     * 必须有admin角色才可以删除
      *
      * @param id
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Result delete(@PathVariable String id) {
-        userService.deleteById(id);
+        try {
+            userService.deleteById(id);
+        } catch (Exception e) {
+            return new Result(false, StatusCode.ERROR, e.getMessage());
+        }
         return new Result(true, StatusCode.OK, "删除成功");
     }
 
