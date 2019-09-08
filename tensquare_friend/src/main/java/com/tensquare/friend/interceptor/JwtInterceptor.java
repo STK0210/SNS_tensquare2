@@ -1,4 +1,4 @@
-package com.tensquare.qa.interceptor;
+package com.tensquare.friend.interceptor;
 
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     //校验权限是在操作执行前进行拦截
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("经过了JwtInterceptor拦截器");
+        System.out.print("经过了friend模块JwtInterceptor\t");
         //无论如何都放行，具体的操作放到具体的操作中判断
         //拦截器只负责把请求头中包含token的令牌进行解析。
         //并把相关的role存入request中
@@ -40,10 +40,10 @@ public class JwtInterceptor implements HandlerInterceptor {
                     if (roles != null) {
                         if (roles.contains("admin")) {
                             //判别角色直接从request中取claims_admin，拿到了就有该角色
-                            request.setAttribute("claims_admin", token);
+                            request.setAttribute("claims_admin", claims);
                         }
                         if (roles.contains("user")) {
-                            request.setAttribute("claims_user", token);
+                            request.setAttribute("claims_user", claims);
                         }
                     }
                 } catch (Exception e) {

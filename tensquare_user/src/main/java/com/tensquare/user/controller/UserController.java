@@ -37,6 +37,24 @@ public class UserController {
     @Autowired
     private JwtUtil jwtUtil;
 
+
+    /**
+     * 更新用户的关注和好友的粉丝
+     * <p>
+     * 粉丝数和关注数的变化一定是相关联的
+     * 并且都在服务端处理，不需要返回数据给客户端
+     * <p>
+     * user关注数上升，friend粉丝数一定上升
+     * user关注数下降，friend粉丝数一定下降
+     *
+     * @param userid
+     * @param friendid
+     */
+    @RequestMapping(value = "/{userid}/{friendid}/{change}", method = RequestMethod.PUT)
+    public void updateFollowcountAndFanscount(@PathVariable String userid, @PathVariable String friendid, @PathVariable int change) {
+        userService.updateFollowcountAndFanscount(change, userid, friendid);
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Result login(@RequestBody User user) {
         user = userService.login(user.getMobile(), user.getPassword());

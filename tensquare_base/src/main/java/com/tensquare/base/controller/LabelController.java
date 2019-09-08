@@ -31,6 +31,7 @@ public class LabelController {
 
     @RequestMapping(value = "/{labelId}", method = RequestMethod.GET)
     public Result findById(@PathVariable("labelId") String labelId) {
+        System.out.println("2222222222222");
         return new Result(true, StatusCode.OK, "查询成功", labelService.findById(labelId));
     }
 
