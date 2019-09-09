@@ -1,5 +1,6 @@
 package com.tensquare.qa.client;
 
+import com.tensquare.qa.client.impl.BaseClientImpl;
 import entity.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @auther likeyu
  * @create 2019-09-08-11:09
  **/
-@FeignClient("tensquare-base")//不支持下划线_
+@FeignClient(value = "tensquare-base", fallback = BaseClientImpl.class)//不支持下划线_,出问题回来执行实现类
 public interface BaseClient {
 
     @RequestMapping(value = "/label/{labelId}", method = RequestMethod.GET)//注意添加controller层前缀

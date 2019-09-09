@@ -22,7 +22,7 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     //校验权限是在操作执行前进行拦截
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("经过了JwtInterceptor拦截器");
+        System.out.println("经过了qa模块的JwtInterceptor");
         //无论如何都放行，具体的操作放到具体的操作中判断
         //拦截器只负责把请求头中包含token的令牌进行解析。
         //并把相关的role存入request中

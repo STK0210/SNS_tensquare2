@@ -22,4 +22,5 @@ public interface UserDao extends JpaRepository<User, String>, JpaSpecificationEx
     @Modifying
     @Query(value = "update tb_user set fanscount=fanscount+? where id=?", nativeQuery = true)
     void updateFanscount(int change, String friendid);
+
 }

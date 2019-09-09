@@ -37,11 +37,11 @@ public class JwtInterceptor implements HandlerInterceptor {
                     Claims claims = jwtUtil.parseJWT(token);
                     String roles = (String) claims.get("roles");
                     if (roles != null) {
-                        if (roles.contains("admin")) {
+                        if (roles.indexOf("admin") > 0) {
                             //判别角色直接从request中取claims_admin，拿到了就有该角色
                             request.setAttribute("claims_admin", token);
                         }
-                        if (roles.contains("user")) {
+                        if (roles.indexOf("user") > 0) {
                             request.setAttribute("claims_user", token);
                         }
                     }

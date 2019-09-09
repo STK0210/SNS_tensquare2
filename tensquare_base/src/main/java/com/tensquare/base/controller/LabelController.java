@@ -5,6 +5,7 @@ import com.tensquare.base.service.LabelService;
 import entity.PageResult;
 import entity.Result;
 import entity.StatusCode;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +24,19 @@ public class LabelController {
     @Autowired
     private LabelService labelService;
 
+    @Autowired
+    private HttpServletRequest request;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public Result findAll() {
+        //获取头信息
+        System.out.println("头信息\t" + request.getHeader("Authorization"));
         return new Result(true, StatusCode.OK, "查询成功", labelService.findAll());
     }
 
     @RequestMapping(value = "/{labelId}", method = RequestMethod.GET)
     public Result findById(@PathVariable("labelId") String labelId) {
-        System.out.println("2222222222222");
         return new Result(true, StatusCode.OK, "查询成功", labelService.findById(labelId));
     }
 
