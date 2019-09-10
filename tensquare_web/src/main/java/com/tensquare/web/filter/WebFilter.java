@@ -3,7 +3,6 @@ package com.tensquare.web.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,9 +38,9 @@ public class WebFilter extends ZuulFilter {
         //得到头信息
         String header = request.getHeader("Authorization");
         //判断是否有头信息
-        if(header!=null && !header.equals("")){
+        if (header != null && !header.equals("")) {
             //转发头信息
-            currentContext.addZuulRequestHeader("Authorization",header);
+            currentContext.addZuulRequestHeader("Authorization", header);
         }
         //放行
         return null;

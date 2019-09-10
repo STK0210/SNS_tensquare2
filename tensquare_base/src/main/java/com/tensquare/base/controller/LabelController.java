@@ -7,6 +7,8 @@ import entity.Result;
 import entity.StatusCode;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,7 @@ import java.util.List;
 @RestController
 @CrossOrigin//跨域
 @RequestMapping("/label")
+@RefreshScope
 public class LabelController {
 
     @Autowired
@@ -27,9 +30,13 @@ public class LabelController {
     @Autowired
     private HttpServletRequest request;
 
+    @Value("${ip}")
+    private String testIp;
+
 
     @RequestMapping(method = RequestMethod.GET)
     public Result findAll() {
+        System.out.println("testIp为" + testIp);
         //获取头信息
         System.out.println("头信息\t" + request.getHeader("Authorization"));
         return new Result(true, StatusCode.OK, "查询成功", labelService.findAll());
