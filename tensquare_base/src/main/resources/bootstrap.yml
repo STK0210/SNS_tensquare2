@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      name: base #git服务器上-test或-dev前缀的部分
+      profile: dev #文件-后缀的部分
+      label: master #提交到master
+      uri: http://192.168.226.134:10001
