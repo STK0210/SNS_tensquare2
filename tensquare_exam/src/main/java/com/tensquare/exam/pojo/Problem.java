@@ -4,45 +4,52 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+
 /**
  * 实体类
- * @author Administrator
  *
+ * @author Administrator
  */
 @Entity
-@Table(name="problem")
-public class Problem implements Serializable{
+@Table(name = "problem")
+public class Problem implements Serializable {
 
-	@Id
-	private String id;//
+    @Id
+    private String id;//系统生成的id
 
+    private Integer problemid;//管理员编写的id
+    private String problemcontent;//题目内容
 
-	
-	private Integer problemid;//
-	private String problemcontent;//
+    public String getId() {
+        return id;
+    }
 
-	
-	public String getId() {		
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public Integer getProblemid() {		
-		return problemid;
-	}
-	public void setProblemid(Integer problemid) {
-		this.problemid = problemid;
-	}
+    public Integer getProblemid() {
+        return problemid;
+    }
 
-	public String getProblemcontent() {		
-		return problemcontent;
-	}
-	public void setProblemcontent(String problemcontent) {
-		this.problemcontent = problemcontent;
-	}
+    public void setProblemid(Integer problemid) {
+        this.problemid = problemid;
+    }
 
+    public String getProblemcontent() {
+        return problemcontent;
+    }
 
-	
+    public void setProblemcontent(String problemcontent) {
+        this.problemcontent = problemcontent;
+    }
+
+    @Override
+    public String toString() {
+        return "Problem{" +
+                "id='" + id + '\'' +
+                ", problemid=" + problemid +
+                ", problemcontent='" + problemcontent + '\'' +
+                '}';
+    }
 }

@@ -3,14 +3,12 @@ package com.tensquare.exam.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import com.tensquare.exam.pojo.User;
+import com.tensquare.exam.pojo.Uelist;
 /**
  * 数据访问接口
  * @author Administrator
  *
  */
-public interface UserDao extends JpaRepository<User,String>,JpaSpecificationExecutor<User>{
-
-    public User findByUsername(String username);
-
+public interface UelistDao extends JpaRepository<Uelist,String>,JpaSpecificationExecutor<Uelist>{
+	
 }
