@@ -1,4 +1,3 @@
 # SNS_tensquare2
 
-所有的application.yml文件已删除，需要自己根据情况去添加。
-（项目完成后更新）
+项目的具体内容在根目录的十次方.xmind文件中
