@@ -1,0 +1,21 @@
+server:
+  port: 10001
+
+spring:
+  application:
+    name: tensquare-config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/STK0210/SNS_tensquare2.git
+          username: STK0210
+          password: 5130021Tk
+  rabbitmq:
+    host: 192.168.226.134
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh
